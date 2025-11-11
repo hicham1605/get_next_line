@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiouzddo <hiouzddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/06 10:28:40 by hiouzddo          #+#    #+#             */
-/*   Updated: 2025/11/11 15:24:49 by hiouzddo         ###   ########.fr       */
+/*   Created: 2025/11/09 14:42:26 by hiouzddo          #+#    #+#             */
+/*   Updated: 2025/11/11 16:09:00 by hiouzddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_all_line(int fd, char *str)
 {
@@ -21,7 +21,7 @@ char	*ft_all_line(int fd, char *str)
 	if (!buffer)
 		return (NULL);
 	bytes = 1;
-	while (bytes > 0 && !ft_strchr(str, '\n'))
+	while (bytes > 0 && (!str || !ft_strchr(str, '\n')))
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes == -1)
@@ -72,7 +72,7 @@ char	*ft_new_str(char *str)
 		i++;
 	if (!str[i])
 		return (for_free(str));
-	new_str = malloc(ft_strlen(str) - i);
+	new_str = malloc(ft_strlen(str) - i + 1);
 	if (!new_str)
 		return (for_free(str));
 	i++;
@@ -86,16 +86,18 @@ char	*ft_new_str(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[1024];
 	char		*next_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 1025 || BUFFER_SIZE <= 0)
 		return (NULL);
-	str = ft_all_line(fd, str);
-	if (!str)
+	str[fd] = ft_all_line(fd, str[fd]);
+	if (!str[fd])
 		return (NULL);
-	next_line = ft_next_line(str);
-	str = ft_new_str(str);
+	next_line = ft_next_line(str[fd]);
+	str[fd] = ft_new_str(str[fd]);
+	if (!str[fd])
+		for_free(str[fd]);
 	if (!next_line || next_line[0] == '\0')
 	{
 		free(next_line);
@@ -103,3 +105,41 @@ char	*get_next_line(int fd)
 	}
 	return (next_line);
 }
+
+// int	main(void)
+// {
+// 	int		fd, fd1, fd2;
+// 	char	*line;
+
+// 	fd = open("text.txt", O_RDONLY);
+// 	fd1 = open("yes.txt", O_RDONLY);
+// 	fd2 = open("file.txt", O_RDONLY);
+// 	if (fd < 0)
+// 		return (1);
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// 	line = get_next_line(fd1);
+// 	printf("%s", line);
+// 	free(line);
+// 	line = get_next_line(fd2);
+// 	printf("%s", line);
+// 	free(line);
+
+// 	line = get_next_line(fd2);
+// 	printf("%s", line);
+// 	free(line);
+
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	close(fd);
+// 	close(fd1);
+// 	close(fd2);
+// 	return (0);
+// }

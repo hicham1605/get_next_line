@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiouzddo <hiouzddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/06 10:28:35 by hiouzddo          #+#    #+#             */
-/*   Updated: 2025/11/11 13:27:49 by hiouzddo         ###   ########.fr       */
+/*   Created: 2025/11/09 14:42:35 by hiouzddo          #+#    #+#             */
+/*   Updated: 2025/11/11 13:27:59 by hiouzddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strlen(const char *s)
 {
@@ -62,12 +62,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*res;
 
 	int (i), (j), (len1), (len2);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
 	if (!s1 && s2)
 		return (ft_strdup(s2));
 	if (!s1 || !s2)
 		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
 	res = malloc(len1 + len2 + 1);
 	if (!res)
 		return (NULL);

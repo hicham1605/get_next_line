@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiouzddo <hiouzddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/09 14:42:43 by hiouzddo          #+#    #+#             */
-/*   Updated: 2025/11/11 14:09:13 by hiouzddo         ###   ########.fr       */
+/*   Created: 2025/11/09 14:42:53 by hiouzddo          #+#    #+#             */
+/*   Updated: 2025/11/11 14:09:08 by hiouzddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <fcntl.h>
 # include <unistd.h>
@@ -23,7 +23,7 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_all_line(int fd, char *str);
+char	*ft_first_line(int fd, char *str);
 char	*ft_next_line(char *str);
 char	*ft_new_str(char *str);
 char	*ft_strjoin(char *s1, char *s2);
